@@ -25,7 +25,6 @@ namespace radon
 				if (buffer[0] == '[')
 				{
 					nameOfCurrent = buffer.substr(1, buffer.size() - 2);
-					categories[nameOfCurrent].setName(nameOfCurrent);
 				}
 				else
 				{
@@ -34,7 +33,6 @@ namespace radon
 					std::string nameOfElement = buffer.substr(0, equalsPosition - 1);
 					std::string valueOfElement = buffer.substr(equalsPosition + 1, buffer.size());
 
-					categories[nameOfCurrent].variables[nameOfElement].name = nameOfElement;
 					categories[nameOfCurrent].variables[nameOfElement].value = valueOfElement;
 				}
 			}

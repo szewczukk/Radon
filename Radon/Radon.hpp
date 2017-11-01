@@ -9,18 +9,7 @@ namespace radon
 	class Category;
 	class File;
 
-	class Named
-	{
-	public:
-		std::string getName() { return name; };
-
-		void setName(const std::string & name) { this->name = name; };
-	protected:
-		std::string name;
-	};
-
-	class Variable 
-		: public Named
+	class Variable
 	{
 	public:
 
@@ -37,7 +26,6 @@ namespace radon
 
 
 	class Category
-		: public Named
 	{
 	public:
 
