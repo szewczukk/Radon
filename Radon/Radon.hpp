@@ -6,7 +6,6 @@
 
 namespace radon
 {
-	class Category;
 	class File;
 
 	class Variable
@@ -20,7 +19,6 @@ namespace radon
 	private:
 		std::string value;
 
-		friend class Category;
 		friend class File;
 	};
 
