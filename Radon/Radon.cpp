@@ -11,14 +11,13 @@ namespace radon
 {
 	File::File(const std::string & path)
 	{
-		std::string buffer;
-
 		std::ifstream stream(path);
-
-		std::string nameOfCurrent = "";
 
 		if (stream.is_open())
 		{
+			std::string buffer;
+			std::string nameOfCurrent = "";
+
 			while (std::getline(stream, buffer))
 			{
 				if (buffer[0] == ';') continue;
@@ -37,8 +36,6 @@ namespace radon
 				}
 			}
 		}
-
-		assert(1);
 	}
 
 
@@ -51,7 +48,29 @@ namespace radon
 		}
 
 		assert(1);
-		return Category();
+	}
+
+
+	void File::addCategory(Category & category)
+	{
+		categories[category.name] = category;
+	}
+
+
+	void File::saveToFile()
+	{
+		std::ofstream file;
+		file.open(path);
+
+		for each (auto category in categories)
+		{
+			file << "[" << category.first << "]";
+			for each(auto var in category.second.variables)
+			{
+				file << var.first << "=" << var.second.getStringValue();
+			}
+		}
+		file.close();
 	}
 
 
@@ -64,7 +83,29 @@ namespace radon
 		}
 
 		assert(1);
-		return Variable();
+	}
+
+
+	void Category::addVariable(Variable & variable)
+	{
+		variables[variable.getName()] = variable;
+	}
+
+
+	Variable::Variable()
+		: Named()
+	{
+	}
+
+	Variable::Variable(const std::string & name, const std::string & value)
+		: Named(name), value(value)
+	{
+	}
+
+
+	Variable::Variable(const std::string & name, const float & value)
+		: Named(name), value(std::to_string(value))
+	{
 	}
 
 
@@ -73,9 +114,54 @@ namespace radon
 		return value;
 	}
 
-
-	int Variable::getIntValue()
+	Category::Category()
+		: Named()
 	{
-		return atoi(value.data());
+	}
+
+	Category::Category(const std::string & name)
+		: Named(name)
+	{
+	}
+
+
+	float Variable::getFloatValue()
+	{
+		return (float)(atof(value.data()));
+	}
+
+
+	void Variable::setValue(float & value)
+	{
+		this->value = std::to_string(value);
+	}
+
+
+	void Variable::setValue(std::string & value)
+	{
+		this->value = value;
+	}
+
+
+	Named::Named()
+	{
+		setName("You need to set name!");
+	}
+
+	Named::Named(const std::string & name)
+	{
+		setName(name);
+	}
+
+
+	void Named::setName(const std::string & name)
+	{
+		this->name = name;
+	}
+
+
+	std::string Named::getName()
+	{
+		return name;
 	}
 }
