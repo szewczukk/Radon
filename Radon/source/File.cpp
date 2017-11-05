@@ -25,6 +25,7 @@ namespace radon
 				if (buffer[0] == '[')
 				{
 					nameOfCurrent = buffer.substr(buffer.find("[") + 1, buffer.find("]") - 1);
+					sections[nameOfCurrent] = Section(nameOfCurrent);
 				}
 				else
 				{
@@ -33,7 +34,7 @@ namespace radon
 					std::string nameOfElement = buffer.substr(0, equalsPosition);
 					std::string valueOfElement = buffer.substr(equalsPosition + 1, buffer.size());
 
-					sections[nameOfCurrent].keys[nameOfElement].value = valueOfElement;
+					sections[nameOfCurrent].keys[nameOfElement] = Key(nameOfElement, valueOfElement);
 				}
 			}
 		}
@@ -45,7 +46,9 @@ namespace radon
 		for each (auto var in sections)
 		{
 			if (var.first == name)
+			{
 				return var.second;
+			}
 		}
 
 		assert(1);
