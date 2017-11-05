@@ -32,6 +32,4 @@ namespace radon
 	{
 		keys[variable.getName()] = variable;
 	}
-
-	
 }

@@ -2,11 +2,10 @@
 
 #include "../include/Radon.hpp"
 
-#include <assert.h>
-#include <fstream>
 #include <string>
-#include <memory>
+#include <fstream>
 #include <algorithm>
+#include <assert.h>
 
 namespace radon
 {
