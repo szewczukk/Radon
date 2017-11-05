@@ -14,9 +14,9 @@ namespace radon
 	{
 	public:
 
-		File(const std::string & path);
+		File(const std::string & path, bool reading = true);
 
-		Section getSection(const std::string & name);
+		std::shared_ptr<Section> getSection(const std::string & name);
 
 		void addSection(Section & category);
 

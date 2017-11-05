@@ -10,46 +10,49 @@
 
 namespace radon
 {
-	File::File(const std::string & path)
+	File::File(const std::string & path, bool reading)
 	{
 		this->path = path;
-		std::ifstream stream(path);
-
-		if (stream.is_open())
+		if (reading)
 		{
-			std::string buffer;
-			std::string nameOfCurrent = "";
+			std::ifstream stream(path);
 
-			while (std::getline(stream, buffer))
+			if (stream.is_open())
 			{
-				buffer.erase(std::remove(buffer.begin(), buffer.end(), ' '), buffer.end());
-				if (buffer[0] == ';' || buffer[0] == '#') continue;
-				if (buffer[0] == '[')
-				{
-					nameOfCurrent = buffer.substr(buffer.find("[") + 1, buffer.find("]") - 1);
-					sections.push_back(Section(nameOfCurrent));
-				}
-				else
-				{
-					int equalsPosition = buffer.find('=');
+				std::string buffer;
+				std::string nameOfCurrent = "";
 
-					std::string nameOfElement = buffer.substr(0, equalsPosition);
-					std::string valueOfElement = buffer.substr(equalsPosition + 1, buffer.size());
+				while (std::getline(stream, buffer))
+				{
+					buffer.erase(std::remove(buffer.begin(), buffer.end(), ' '), buffer.end());
+					if (buffer[0] == ';' || buffer[0] == '#') continue;
+					if (buffer[0] == '[')
+					{
+						nameOfCurrent = buffer.substr(buffer.find("[") + 1, buffer.find("]") - 1);
+						sections.push_back(Section(nameOfCurrent));
+					}
+					else
+					{
+						int equalsPosition = buffer.find('=');
 
-					sections.back().addKey(Key(nameOfElement, valueOfElement));
+						std::string nameOfElement = buffer.substr(0, equalsPosition);
+						std::string valueOfElement = buffer.substr(equalsPosition + 1, buffer.size());
+
+						sections.back().addKey(Key(nameOfElement, valueOfElement));
+					}
 				}
 			}
 		}
 	}
 
 
-	Section File::getSection(const std::string & name)
+	std::shared_ptr<Section> File::getSection(const std::string & name)
 	{
 		for each (auto var in sections)
 		{
 			if (var.getName() == name)
 			{
-				return var;
+				return std::make_shared<Section>(var);
 			}
 		}
 
@@ -65,14 +68,14 @@ namespace radon
 
 	void File::saveToFile()
 	{
-		std::ofstream file(path, std::ofstream::out | std::ofstream::trunc);
+		std::ofstream file(path.data(), std::ios::out | std::ios::trunc);
 
 		for each (auto category in sections)
 		{
-			file << "[" << category.getName() << "]";
+			file << "[" << category.getName() << "] \n";
 			for each(auto var in category.keys)
 			{
-				file << var.getName() << "=" << var.getStringValue();
+				file << var.getName() << "=" << var.getStringValue() << "\n";
 			}
 		}
 		file.close();
