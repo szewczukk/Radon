@@ -7,8 +7,8 @@
 namespace radon
 {
 	class File;
-	class Variable;
-	class Category;
+	class Key;
+	class Section;
 
 	class Named
 	{
@@ -26,16 +26,16 @@ namespace radon
 		std::string name;
 	};
 
-	class Variable
+	class Key
 		: public Named
 	{
 	public:
 
-		Variable();
+		Key();
 
-		Variable(const std::string & name, const std::string & value);
+		Key(const std::string & name, const std::string & value);
 		
-		Variable(const std::string & name, const float & value);
+		Key(const std::string & name, const float & value);
 
 		std::string getStringValue();
 
@@ -52,21 +52,21 @@ namespace radon
 	};
 
 
-	class Category
+	class Section
 		: public Named
 	{
 	public:
 
-		Category();
+		Section();
 
-		Category(const std::string & name);
+		Section(const std::string & name);
 
-		Variable getVariable(const std::string & name);
+		Key getKey(const std::string & name);
 
-		void addVariable(Variable & variable);
+		void addKey(Key & variable);
 
 	private:
-		std::map<std::string, Variable> variables;
+		std::map<std::string, Key> keys;
 
 		friend class File;
 	};
@@ -77,14 +77,14 @@ namespace radon
 
 		File(const std::string & path);
 
-		Category getCategory(const std::string & name);
+		Section getSection(const std::string & name);
 
-		void addCategory(Category & category);
+		void addSection(Section & category);
 
 		void saveToFile();
 
 	private:
-		std::map<std::string, Category> categories;
+		std::map<std::string, Section> sections;
 		std::string path;
 	};
 }

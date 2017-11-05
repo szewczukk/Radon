@@ -33,16 +33,16 @@ namespace radon
 					std::string nameOfElement = buffer.substr(0, equalsPosition);
 					std::string valueOfElement = buffer.substr(equalsPosition + 1, buffer.size());
 
-					categories[nameOfCurrent].variables[nameOfElement].value = valueOfElement;
+					sections[nameOfCurrent].keys[nameOfElement].value = valueOfElement;
 				}
 			}
 		}
 	}
 
 
-	Category File::getCategory(const std::string & name)
+	Section File::getSection(const std::string & name)
 	{
-		for each (auto var in categories)
+		for each (auto var in sections)
 		{
 			if (var.first == name)
 				return var.second;
@@ -52,9 +52,9 @@ namespace radon
 	}
 
 
-	void File::addCategory(Category & category)
+	void File::addSection(Section & category)
 	{
-		categories[category.name] = category;
+		sections[category.name] = category;
 	}
 
 
@@ -63,10 +63,10 @@ namespace radon
 		std::ofstream file;
 		file.open(path);
 
-		for each (auto category in categories)
+		for each (auto category in sections)
 		{
 			file << "[" << category.first << "]";
-			for each(auto var in category.second.variables)
+			for each(auto var in category.second.keys)
 			{
 				file << var.first << "=" << var.second.getStringValue();
 			}
@@ -75,9 +75,9 @@ namespace radon
 	}
 
 
-	Variable Category::getVariable(const std::string & name)
+	Key Section::getKey(const std::string & name)
 	{
-		for each (auto var in variables)
+		for each (auto var in keys)
 		{
 			if (var.first == name)
 				return var.second;
@@ -87,58 +87,58 @@ namespace radon
 	}
 
 
-	void Category::addVariable(Variable & variable)
+	void Section::addKey(Key & variable)
 	{
-		variables[variable.getName()] = variable;
+		keys[variable.getName()] = variable;
 	}
 
 
-	Variable::Variable()
+	Key::Key()
 		: Named()
 	{
 	}
 
-	Variable::Variable(const std::string & name, const std::string & value)
+	Key::Key(const std::string & name, const std::string & value)
 		: Named(name), value(value)
 	{
 	}
 
 
-	Variable::Variable(const std::string & name, const float & value)
+	Key::Key(const std::string & name, const float & value)
 		: Named(name), value(std::to_string(value))
 	{
 	}
 
 
-	std::string Variable::getStringValue()
+	std::string Key::getStringValue()
 	{
 		return value;
 	}
 
-	Category::Category()
+	Section::Section()
 		: Named()
 	{
 	}
 
-	Category::Category(const std::string & name)
+	Section::Section(const std::string & name)
 		: Named(name)
 	{
 	}
 
 
-	float Variable::getFloatValue()
+	float Key::getFloatValue()
 	{
 		return (float)(atof(value.data()));
 	}
 
 
-	void Variable::setValue(float & value)
+	void Key::setValue(float & value)
 	{
 		this->value = std::to_string(value);
 	}
 
 
-	void Variable::setValue(std::string & value)
+	void Key::setValue(std::string & value)
 	{
 		this->value = value;
 	}
