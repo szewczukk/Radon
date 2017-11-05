@@ -19,10 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Radon.hpp" />
+    <ClInclude Include="include\File.hpp" />
+    <ClInclude Include="include\Key.hpp" />
+    <ClInclude Include="include\Named.hpp" />
+    <ClInclude Include="include\Radon.hpp" />
+    <ClInclude Include="include\Section.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Radon.cpp" />
+    <ClCompile Include="source\File.cpp" />
+    <ClCompile Include="source\Key.cpp" />
+    <ClCompile Include="source\Named.cpp" />
+    <ClCompile Include="source\Section.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

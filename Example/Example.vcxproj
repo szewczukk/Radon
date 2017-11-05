@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Dmitro Szewczuk\Documents\Projects\Radon\Radon;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Dmitro Szewczuk\Documents\Projects\Radon\Radon\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Dmitro Szewczuk\Documents\Projects\Radon\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

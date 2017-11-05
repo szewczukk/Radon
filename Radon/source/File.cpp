@@ -1,6 +1,6 @@
 // Copyright Dmitro bjornus Szewczuk 2017
 
-#include "Radon.hpp"
+#include "../include/Radon.hpp"
 
 #include <assert.h>
 #include <fstream>
@@ -73,97 +73,5 @@ namespace radon
 			}
 		}
 		file.close();
-	}
-
-
-	Key Section::getKey(const std::string & name)
-	{
-		for each (auto var in keys)
-		{
-			if (var.first == name)
-				return var.second;
-		}
-
-		assert(1);
-	}
-
-
-	void Section::addKey(Key & variable)
-	{
-		keys[variable.getName()] = variable;
-	}
-
-
-	Key::Key()
-		: Named()
-	{
-	}
-
-	Key::Key(const std::string & name, const std::string & value)
-		: Named(name), value(value)
-	{
-	}
-
-
-	Key::Key(const std::string & name, const float & value)
-		: Named(name), value(std::to_string(value))
-	{
-	}
-
-
-	std::string Key::getStringValue()
-	{
-		return value;
-	}
-
-	Section::Section()
-		: Named()
-	{
-	}
-
-	Section::Section(const std::string & name)
-		: Named(name)
-	{
-	}
-
-
-	float Key::getFloatValue()
-	{
-		return (float)(atof(value.data()));
-	}
-
-
-	void Key::setValue(float & value)
-	{
-		this->value = std::to_string(value);
-	}
-
-
-	void Key::setValue(std::string & value)
-	{
-		this->value = value;
-	}
-
-
-	Named::Named()
-	{
-		setName("You need to set name!");
-	}
-
-	Named::Named(const std::string & name)
-	{
-		setName(name);
-	}
-
-
-	void Named::setName(const std::string & name)
-	{
-		this->name = name;
-	}
-
-
-	std::string Named::getName()
-	{
-		return name;
 	}
 }
