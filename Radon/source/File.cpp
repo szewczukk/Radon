@@ -5,12 +5,14 @@
 #include <string>
 #include <fstream>
 #include <algorithm>
+#include <iostream>
 #include <assert.h>
 
 namespace radon
 {
 	File::File(const std::string & path)
 	{
+		this->path = path;
 		std::ifstream stream(path);
 
 		if (stream.is_open())
@@ -21,11 +23,11 @@ namespace radon
 			while (std::getline(stream, buffer))
 			{
 				buffer.erase(std::remove(buffer.begin(), buffer.end(), ' '), buffer.end());
-				if (buffer[0] == ';') continue;
+				if (buffer[0] == ';' || buffer[0] == '#') continue;
 				if (buffer[0] == '[')
 				{
 					nameOfCurrent = buffer.substr(buffer.find("[") + 1, buffer.find("]") - 1);
-					sections[nameOfCurrent] = Section(nameOfCurrent);
+					sections.push_back(Section(nameOfCurrent));
 				}
 				else
 				{
@@ -34,7 +36,7 @@ namespace radon
 					std::string nameOfElement = buffer.substr(0, equalsPosition);
 					std::string valueOfElement = buffer.substr(equalsPosition + 1, buffer.size());
 
-					sections[nameOfCurrent].keys[nameOfElement] = Key(nameOfElement, valueOfElement);
+					sections.back().addKey(Key(nameOfElement, valueOfElement));
 				}
 			}
 		}
@@ -45,9 +47,9 @@ namespace radon
 	{
 		for each (auto var in sections)
 		{
-			if (var.first == name)
+			if (var.getName() == name)
 			{
-				return var.second;
+				return var;
 			}
 		}
 
@@ -57,21 +59,20 @@ namespace radon
 
 	void File::addSection(Section & category)
 	{
-		sections[category.name] = category;
+		sections.push_back(category);
 	}
 
 
 	void File::saveToFile()
 	{
-		std::ofstream file;
-		file.open(path);
+		std::ofstream file(path, std::ofstream::out | std::ofstream::trunc);
 
 		for each (auto category in sections)
 		{
-			file << "[" << category.first << "]";
-			for each(auto var in category.second.keys)
+			file << "[" << category.getName() << "]";
+			for each(auto var in category.keys)
 			{
-				file << var.first << "=" << var.second.getStringValue();
+				file << var.getName() << "=" << var.getStringValue();
 			}
 		}
 		file.close();

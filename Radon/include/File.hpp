@@ -3,7 +3,7 @@
 #pragma once
 
 #include <string>
-#include <unordered_map>
+#include <vector>
 #include <memory>
 
 namespace radon
@@ -23,7 +23,7 @@ namespace radon
 		void saveToFile();
 
 	private:
-		std::unordered_map<std::string, Section> sections;
+		std::vector<Section> sections;
 		std::string path;
 	};
 }

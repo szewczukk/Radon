@@ -20,8 +20,8 @@ namespace radon
 	{
 		for each (auto var in keys)
 		{
-			if (var.first == name)
-				return var.second;
+			if (var.getName() == name)
+				return var;
 		}
 
 		assert(1);
@@ -30,6 +30,6 @@ namespace radon
 
 	void Section::addKey(Key & variable)
 	{
-		keys[variable.getName()] = variable;
+		keys.push_back(variable);
 	}
 }

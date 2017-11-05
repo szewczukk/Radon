@@ -3,7 +3,7 @@
 #pragma once
 
 #include <string>
-#include <map>
+#include <vector>
 
 #include "Named.hpp"
 
@@ -25,7 +25,7 @@ namespace radon
 		void addKey(Key & variable);
 
 	private:
-		std::map<std::string, Key> keys;
+		std::vector<Key> keys;
 
 		friend class File;
 	};
