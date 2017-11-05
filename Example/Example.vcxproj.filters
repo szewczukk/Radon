@@ -19,4 +19,7 @@
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="File.ini" />
+  </ItemGroup>
 </Project>

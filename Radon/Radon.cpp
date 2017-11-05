@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <memory>
+#include <algorithm>
 
 namespace radon
 {
@@ -23,13 +24,13 @@ namespace radon
 				if (buffer[0] == ';') continue;
 				if (buffer[0] == '[')
 				{
-					nameOfCurrent = buffer.substr(1, buffer.size() - 2);
+					nameOfCurrent = buffer.substr(buffer.find("[") + 1, buffer.find("]") - 1);
 				}
 				else
 				{
-					int equalsPosition = buffer.find("=");
+					int equalsPosition = buffer.find('=');
 
-					std::string nameOfElement = buffer.substr(0, equalsPosition - 1);
+					std::string nameOfElement = buffer.substr(0, equalsPosition);
 					std::string valueOfElement = buffer.substr(equalsPosition + 1, buffer.size());
 
 					categories[nameOfCurrent].variables[nameOfElement].value = valueOfElement;
