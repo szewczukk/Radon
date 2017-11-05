@@ -21,6 +21,7 @@ namespace radon
 
 			while (std::getline(stream, buffer))
 			{
+				buffer.erase(std::remove(buffer.begin(), buffer.end(), ' '), buffer.end());
 				if (buffer[0] == ';') continue;
 				if (buffer[0] == '[')
 				{
