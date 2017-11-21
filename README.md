@@ -14,21 +14,14 @@ Simple parser for INI files
 ```cpp
 radon::File file("File.ini");
 
-Section * section = file.getSection("section");
-
-//Or
-
 std::shared_ptr<Section> section = file.getSection("section");
-
-float value = section->getKey("key").getFloatValue();
-
-//Or
 
 std::string value = section->getKey("key").getStringValue();
 ```
 ### Short version
 ```cpp
 radon::File file("file.ini");
+
 std::string value = file.getSection("section")->getKey("key").getStringValue();
 ```
 
