@@ -34,11 +34,11 @@ std::string value = file.getSection("section")->getKey("key").getStringValue();
 
 ## Creating INI files
 ```cpp
-	radon::File file("file.ini");
+radon::File file("file.ini");
 
-	file.addSection(new Section("section"));
-	file.getSection("section")->addKey("key");
-	file.getSection("section")->getKey("key")->setValue("Value");
-	
-	file.saveToFile();
+file.addSection(new Section("section"));
+file.getSection("section")->addKey("key");
+file.getSection("section")->getKey("key")->setValue("Value");
+
+file.saveToFile();
 ```
