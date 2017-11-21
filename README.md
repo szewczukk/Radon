@@ -4,7 +4,7 @@ Simple parser for INI files
 ## Installation
 1. Clone repo
 	
-	$ git clone htpps://https://github.com/bjornus/Radon
+	$ git clone https://github.com/bjornus/Radon
 
 2. Open Radon project, compile them in Release mode
 3. Attach to project
@@ -12,20 +12,22 @@ Simple parser for INI files
 ## Getting value from INI file
 ### Long version
 ```cpp
-	//Load file
-	radon::File file("File.ini");
+radon::File file("File.ini");
 
-	//Get Section with traditional or modern pointer
-	Section * section = file.getSection("section");
+Section * section = file.getSection("section");
 
-	//Or
+//Or
 
-	std::shared_ptr<Section> section = file.getSection("section");
+std::shared_ptr<Section> section = file.getSection("section");
 
-	//Get value of Key in float or string
-	float value = section->getKey("key").getFloatValue();
+float value = section->getKey("key").getFloatValue();
 
-	//Or
+//Or
 
-	std::string value = section->getKey("key").getStringValue();
+std::string value = section->getKey("key").getStringValue();
+```
+### Short version
+```cpp
+radon::File file("file.ini");
+std::string value = file.getSection("section")->getKey("key").getStringValue();
 ```
