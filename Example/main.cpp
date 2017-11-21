@@ -11,6 +11,8 @@ int main()
 	
 	file.getSection("Window")->addKey(radon::Key("A", "a"));
 
+	std::cout << file.getSection("Window")->getKey("A").getStringValue() << std::endl;
+
 	file.saveToFile();
 
 	system("PAUSE");

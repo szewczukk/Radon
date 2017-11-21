@@ -18,12 +18,12 @@ namespace radon
 
 		std::shared_ptr<Section> getSection(const std::string & name);
 
-		void addSection(Section & category);
+		void addSection(Section * category);
 
 		void saveToFile();
 
 	private:
-		std::vector<Section> sections;
+		std::vector<std::shared_ptr<Section>> sections;
 		std::string path;
 	};
 }
