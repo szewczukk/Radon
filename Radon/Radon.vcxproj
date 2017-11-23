@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header_only\include\Radon.hpp" />
     <ClInclude Include="include\File.hpp" />
     <ClInclude Include="include\Key.hpp" />
     <ClInclude Include="include\Named.hpp" />

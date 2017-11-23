@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Dmitro Szewczuk\Documents\Projects\Radon\Radon\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Dmitro Szewczuk\Documents\Projects\Radon\Radon\header_only\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Dmitro Szewczuk\Documents\Projects\Radon\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\Dmitro Szewczuk\Documents\Projects\Radon\Radon\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Dmitro Szewczuk\Documents\Projects\Radon\Radon\header_only\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Dmitro Szewczuk\Documents\Projects\Radon\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
