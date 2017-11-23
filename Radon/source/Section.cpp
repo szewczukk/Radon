@@ -11,10 +11,12 @@ namespace radon
 	{
 	}
 
+
 	Section::Section(const std::string & name)
 		: Named(name)
 	{
 	}
+
 
 	Key Section::getKey(const std::string & name)
 	{

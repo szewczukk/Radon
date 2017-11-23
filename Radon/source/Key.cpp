@@ -9,6 +9,7 @@ namespace radon
 	{
 	}
 
+
 	Key::Key(const std::string & name, const std::string & value)
 		: Named(name), value(value)
 	{
@@ -25,6 +26,7 @@ namespace radon
 	{
 		return value;
 	}
+
 
 	float Key::getFloatValue()
 	{

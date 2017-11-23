@@ -29,7 +29,7 @@ namespace radon
 					if (buffer[0] == '[')
 					{
 						nameOfCurrent = buffer.substr(buffer.find("[") + 1, buffer.find("]") - 1);
-						sections.push_back(std::shared_ptr<Section>(new Section(nameOfCurrent)));
+						sections.push_back(std::unique_ptr<Section>(new Section(nameOfCurrent)));
 					}
 					else
 					{
@@ -46,13 +46,13 @@ namespace radon
 	}
 
 
-	std::shared_ptr<Section> File::getSection(const std::string & name)
+	std::unique_ptr<Section> File::getSection(const std::string & name)
 	{
-		for each (auto var in sections)
+		for (auto & section : sections)
 		{
-			if (var->getName() == name)
+			if (section->getName() == name)
 			{
-				return var;
+				return std::make_unique<Section>(*section);
 			}
 		}
 
@@ -60,9 +60,9 @@ namespace radon
 	}
 
 
-	void File::addSection(Section * category)
+	void File::addSection(Section & category)
 	{
-		sections.push_back(std::make_shared<Section>(*category));
+		sections.push_back(std::make_unique<Section>(category));
 	}
 
 
@@ -70,12 +70,12 @@ namespace radon
 	{
 		std::ofstream file(path.data(), std::ios::out | std::ios::trunc);
 
-		for each (auto section in sections)
+		for (auto & section : sections)
 		{
 			file << "[" << section->getName() << "] \n";
-			for each(auto var in section->keys)
+			for (auto & key : section->keys)
 			{
-				file << var.getName() << "=" << var.getStringValue() << "\n";
+				file << key.getName() << "=" << key.getStringValue() << "\n";
 			}
 		}
 		file.close();

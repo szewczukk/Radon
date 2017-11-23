@@ -9,6 +9,7 @@ namespace radon
 		setName("You need to set name!");
 	}
 
+
 	Named::Named(const std::string & name)
 	{
 		setName(name);
