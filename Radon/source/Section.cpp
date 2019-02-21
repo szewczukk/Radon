@@ -20,7 +20,7 @@ namespace radon
 
 	Key Section::getKey(const std::string & name)
 	{
-		for (auto var : keys)
+		for (auto & var : keys)
 		{
 			if (var.getName() == name)
 				return var;
