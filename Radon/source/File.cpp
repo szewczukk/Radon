@@ -15,7 +15,7 @@ namespace radon
 		this->path = path;
 		if (reading)
 		{
-			std::ifstream stream(path);
+			std::ifstream stream(path.c_str());
 
 			if (stream.is_open())
 			{
@@ -24,12 +24,11 @@ namespace radon
 
 				while (std::getline(stream, buffer))
 				{
-					buffer.erase(std::remove(buffer.begin(), buffer.end(), ' '), buffer.end());
 					if (buffer[0] == ';' || buffer[0] == '#') continue;
 					if (buffer[0] == '[')
 					{
 						nameOfCurrent = buffer.substr(buffer.find("[") + 1, buffer.find("]") - 1);
-						sections.push_back(std::unique_ptr<Section>(new Section(nameOfCurrent)));
+						sections.push_back(Section(nameOfCurrent));
 					}
 					else
 					{
@@ -38,7 +37,7 @@ namespace radon
 						std::string nameOfElement = buffer.substr(0, equalsPosition);
 						std::string valueOfElement = buffer.substr(equalsPosition + 1, buffer.size());
 
-						sections.back()->addKey(Key(nameOfElement, valueOfElement));
+						sections.back().addKey(Key(nameOfElement, valueOfElement));
 					}
 				}
 			}
@@ -46,23 +45,23 @@ namespace radon
 	}
 
 
-	std::unique_ptr<Section> File::getSection(const std::string & name)
+	Section *File::getSection(const std::string & name)
 	{
-		for (auto & section : sections)
+		for (int i = 0; i < (int)sections.size(); i++)
 		{
-			if (section->getName() == name)
+			if (sections[i].getName() == name)
 			{
-				return std::make_unique<Section>(*section);
+				return &sections[i];
 			}
 		}
 
-		assert(1);
+		return NULL;
 	}
 
 
-	void File::addSection(Section & category)
+	void File::addSection(const std::string & name)
 	{
-		sections.push_back(std::make_unique<Section>(category));
+		sections.push_back(Section(name));
 	}
 
 
@@ -70,12 +69,12 @@ namespace radon
 	{
 		std::ofstream file(path.data(), std::ios::out | std::ios::trunc);
 
-		for (auto & section : sections)
+		for (int i = 0; i < (int)sections.size(); i++)
 		{
-			file << "[" << section->getName() << "] \n";
-			for (auto & key : section->keys)
+			file << "[" << sections[i].getName() << "] \n";
+			for(int j = 0; j < (int)sections[i].keys.size(); j++)
 			{
-				file << key.getName() << "=" << key.getStringValue() << "\n";
+				file << sections[i].keys[j].getName() << "=" << sections[i].keys[j].getStringValue() << "\n";
 			}
 		}
 		file.close();

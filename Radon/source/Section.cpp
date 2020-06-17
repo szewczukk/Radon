@@ -18,20 +18,20 @@ namespace radon
 	}
 
 
-	Key Section::getKey(const std::string & name)
+	Key *Section::getKey(const std::string & name)
 	{
-		for each (auto var in keys)
+		for (int i = 0; i < (int)keys.size(); i++)
 		{
-			if (var.getName() == name)
-				return var;
+			if (keys[i].getName() == name)
+				return &keys[i];
 		}
 
-		assert(1);
+		return NULL;
 	}
 
 
-	void Section::addKey(Key & variable)
+	void Section::addKey(Key key)
 	{
-		keys.push_back(variable);
+		keys.push_back(key);
 	}
 }
